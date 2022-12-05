@@ -2,9 +2,32 @@ import time
 import pandas as pd
 import numpy as np
 
+
 CITY_DATA = { 'chicago': 'chicago.csv',
-              'new york city': 'new_york_city.csv',
+              'new york': 'new_york_city.csv',
               'washington': 'washington.csv' }
+
+MONTH_MAPPING = {
+            'all': 'all',
+            'january': '1',
+            'february': '2',
+            'march': '3',
+            'april': '4',
+            'may': '5',
+            'june': '6',
+        }
+
+
+def get_key_from_value(dict, value):
+    '''
+    Return key of a provided value within a dictionary
+    '''
+    for k, v in dict.items():
+        if v == value or v == str(value):
+            return k
+ 
+    return "key does not exist"
+
 
 def get_filters():
     """
@@ -16,33 +39,34 @@ def get_filters():
         (str) day - name of the day of week to filter by, or "all" to apply no day filter
     """
     print('Hello! Let\'s explore some US bikeshare data!')
-    # get user input for city (chicago, new york city, washington). HINT: Use a while loop to handle invalid inputs
+    # TO DO: get user input for city (chicago, new york city, washington). HINT: Use a while loop to handle invalid inputs
+    while True:
+        input_city = input("Would you like to see data for Chicago, New York, or Washington: ").lower()
+        if input_city in ['chicago', 'new york', 'washington']:
+            city = CITY_DATA[input_city.lower()]
+            break
+        else:
+            print("Please input among available options")
 
+    # TO DO: get user input for month (all, january, february, ... , june)
+    while True:
+        input_month = input("Which month? January, February, March, April, May, or June?. Type 'all' if you want to skip filter: ").lower()
+        if input_month in ['january', 'february', 'march', 'april', 'may', 'june', 'all']:
+            month = MONTH_MAPPING[input_month]
+            break
+        else:
+            print("Please input among available options")
 
-    # get user input for month (all, january, february, ... , june)
-
-
-    # get user input for day of week (all, monday, tuesday, ... sunday)
-
+    # TO DO: get user input for day of week (all, monday, tuesday, ... sunday)
+    while True:
+        day = input("Which day? Please type your response as a day name such as Monday, Tuesday, Wednesdays...? Or type 'all' if you want to skip filter: ").lower()
+        if day not in ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday', 'all']:
+            print("Please input a valid day name")
+        else:
+            break
 
     print('-'*40)
     return city, month, day
-
-
-def load_data(city, month, day):
-    """
-    Loads data for the specified city and filters by month and day if applicable.
-
-    Args:
-        (str) city - name of the city to analyze
-        (str) month - name of the month to filter by, or "all" to apply no month filter
-        (str) day - name of the day of week to filter by, or "all" to apply no day filter
-    Returns:
-        df - Pandas DataFrame containing city data filtered by month and day
-    """
-
-
-    return df
 
 
 def time_stats(df):
